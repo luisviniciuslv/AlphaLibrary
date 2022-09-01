@@ -26,8 +26,3 @@ export async function getAll() {
   await connectToDatabase();
   return await MangaGet.find().exec();
 }
-
-export async function deleteManga(id: any) {
-  await connectToDatabase();
-  return await MangaGet.findByIdAndDelete(id).exec();
-}
