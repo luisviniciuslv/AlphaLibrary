@@ -36,8 +36,8 @@ export const MangaSchema: Schema = new Schema<MangaDocument>({
   qtdPages: Number,
   price: Number,
   tags: [String],
-  imageUrl: String,
-  stars: Number,
+  imageUrl: String, 
+  stars: Number
 });
 
 const modelName: string = "Mangas";
