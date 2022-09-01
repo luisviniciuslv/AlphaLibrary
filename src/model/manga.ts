@@ -15,6 +15,10 @@ export interface MangaDeleteDTO {
   password?: string;
   id?: ObjectId;
 }
+export interface MangaDeleteDTO {
+  password?: string;
+  id?: ObjectId;
+}
 export interface MangaDocument {
   _id?: ObjectId;
   name: string;
