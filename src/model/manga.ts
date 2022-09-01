@@ -11,7 +11,10 @@ export interface MangaRequestDTO {
   imageUrl: string;
   stars: number;
 }
-
+export interface MangaDeleteDTO {
+  password?: string;
+  id?: ObjectId;
+}
 export interface MangaDocument {
   _id?: ObjectId;
   name: string;
@@ -29,8 +32,8 @@ export const MangaSchema: Schema = new Schema<MangaDocument>({
   qtdPages: Number,
   price: Number,
   tags: [String],
-  imageUrl: String, 
-  stars: Number
+  imageUrl: String,
+  stars: Number,
 });
 
 const modelName: string = "Mangas";
