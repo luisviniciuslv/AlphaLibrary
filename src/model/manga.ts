@@ -11,7 +11,10 @@ export interface MangaRequestDTO {
   imageUrl: string;
   stars: number;
 }
-
+export interface MangaDeleteDTO {
+  password?: string;
+  id?: ObjectId;
+}
 export interface MangaDocument {
   _id?: ObjectId;
   name: string;
