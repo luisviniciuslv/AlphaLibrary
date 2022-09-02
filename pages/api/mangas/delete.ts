@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MangaDeleteDTO, MangaDocument } from "../../src/model/manga";
-import { deleteManga } from "../../src/repository/manga-repository";
+import { MangaDeleteDTO, MangaDocument } from "../../../src/model/manga";
+import { deleteManga } from "../../../src/repository/manga-repository";
 
 export default async function handler(
   req: NextApiRequest,
