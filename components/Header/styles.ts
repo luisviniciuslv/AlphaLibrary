@@ -38,6 +38,7 @@ export const Info = styled.div`
 
   p {
     color: ${props => props.theme["white-50"]};
+    font-weight: 300;
   }
 
 `
