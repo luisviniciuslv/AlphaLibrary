@@ -1,9 +1,9 @@
-import { validateManga } from './../../src/validations/user-creation';
+import { validateManga } from '../../../src/validations/creation';
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MangaRequestDTO } from "../../src/model/manga";
-import { create } from "../../src/repository/manga-repository";
-import { InvalidPayloadException } from '../../src/exceptions/invalid-payload-exception';
-import { MangaNameAlreadyExistsException } from '../../src/exceptions/manga-name-already-exists-exception';
+import { MangaRequestDTO } from "../../../src/model/manga";
+import { create } from "../../../src/repository/manga-repository";
+import { InvalidPayloadException } from '../../../src/exceptions/invalid-payload-exception';
+import { MangaNameAlreadyExistsException } from '../../../src/exceptions/manga-name-already-exists-exception';
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,7 +20,7 @@ export default async function handler(
     delete manga.password
     await validateManga(manga)
     const persistedManga = await create(manga);
-    res.status(201).send(`persisted in api/manga/?id=${persistedManga._id}`);
+    res.status(201).send(`persisted in api/mangas/${persistedManga._id}`);
   } catch (error) {
 
     if (error instanceof InvalidPayloadException) {
