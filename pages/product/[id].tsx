@@ -1,3 +1,4 @@
+import axios from "axios";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import {
@@ -14,6 +15,7 @@ import ReactStars from "react-rating-stars-component";
 import styled from "styled-components";
 import DefaultLayout from "../../components/Layout";
 import { MangaImage } from "../../components/MangaCard";
+import { MangaDocument } from "../../src/model/manga";
 import { defaultTheme } from "../../styles/themes/default";
 
 export const ProductContainer = styled.div`
@@ -47,6 +49,7 @@ export const Amount = styled.div`
   justify-content: space-between;
 
   width: 8.562rem;
+  height: 2.3rem;
   padding: 0.5rem;
 
   background-color: ${(props) => props.theme["gray-800"]};
@@ -73,7 +76,7 @@ export const Buy = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
 `;
 
 export const BuyButton = styled.button`
@@ -160,6 +163,9 @@ export const MangaDesc = styled.p`
   font-weight: 100;
 
   margin-top: 0.75rem;
+
+  word-spacing: 0.25rem;
+  line-height: 1.25rem;
 `;
 
 const Product: NextPage = () => {
@@ -168,6 +174,8 @@ const Product: NextPage = () => {
 
   const [amount, setAmount] = useState(0);
 
+  const [manga, setManga] = useState<MangaDocument>();
+
   function handleAmountChange(quant: number) {
     if (amount + quant >= 0) {
       setAmount(amount + quant);
@@ -175,12 +183,14 @@ const Product: NextPage = () => {
   }
 
   useEffect(() => {
-    if (!id) {
-      return;
+    if (id) {
+      axios.get(`http://localhost:3000/api/mangas/${id}`).then((response) => {
+        setManga(response.data);
+      });
     }
   }, [id]);
 
-  if (!id) {
+  if (!manga) {
     return <h1></h1>;
   }
 
@@ -188,34 +198,29 @@ const Product: NextPage = () => {
     <DefaultLayout>
       <ProductContainer>
         <ResumeCard>
-          <MangaImage
-            src={"https://cdn.myanimelist.net/images/anime/1045/123711.jpg"}
-            alt=""
-            width={195}
-            height={304}
-          />
+          <MangaImage src={manga.imageUrl} alt="" width={195} height={304} />
           <Rating>
             <ReactStars
               count={5}
               isHalf={true}
               size={24}
               edit={false}
-              value={4}
+              value={manga.stars}
               emptyIcon={<Star />}
               halfIcon={<StarHalf />}
               fullIcon={<Star weight="fill" />}
               activeColor={defaultTheme["green-500"]}
             />
-            {4}
+            {manga.stars}
           </Rating>
           <Buy>
             <Amount>
-              <Button onClick={() => handleAmountChange(1)}>
-                <Plus size={23} weight="bold" />
-              </Button>
-              {amount}
               <Button onClick={() => handleAmountChange(-1)}>
                 <Minus size={23} weight="bold" />
+              </Button>
+              {amount}
+              <Button onClick={() => handleAmountChange(1)}>
+                <Plus size={23} weight="bold" />
               </Button>
             </Amount>
             <BuyButton>
@@ -225,7 +230,7 @@ const Product: NextPage = () => {
         </ResumeCard>
         <Info>
           <Description>
-            <Title>One Piece: East Blue: Volume 7</Title>
+            <Title>{manga.name}</Title>
             <Unity>
               <strong>30 </strong>
               Unidades
@@ -233,22 +238,16 @@ const Product: NextPage = () => {
             <Pages>
               <Files size={20} />
               Quantidade de Páginas
-              <strong> 200 </strong>
+              <strong>{manga.qtdPages}</strong>
             </Pages>
-            <Tags>
-              <Tag>Romance</Tag>
-              <Tag>Romance</Tag>
-              <Tag>Romance</Tag>
-              <Tag>Romance</Tag>
-              <Tag>Romance</Tag>
-            </Tags>
+            <Tags></Tags>
           </Description>
           <Description>
             <TitleDesc>
               <ChatText size={20} />
               Descrição
             </TitleDesc>
-            <MangaDesc>lorem Ipsum Dolor Met lorem Ipsum Dolor Met</MangaDesc>
+            <MangaDesc>{manga.description}</MangaDesc>
           </Description>
         </Info>
       </ProductContainer>

@@ -58,6 +58,8 @@ export const Title = styled.div`
 export const Description = styled.div`
   font-weight: 300;
   text-align: center;
+
+  padding: 0 0.5rem;
 `
 
 export const Buy = styled.div`
@@ -98,7 +100,7 @@ export function MangaCard({ id, image, title, description, price, rating, destac
       destacado={destacado}
       onClick={() => router.push({
         pathname: '/product/[id]',
-        query: { id: 1 }
+        query: { id: id }
       })}
     >
       <MangaImage src={image} alt="" width={155} height={242} />
