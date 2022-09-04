@@ -1,186 +1,76 @@
-import { useRouter } from 'next/router'
-import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
-import DefaultLayout from '../../components/Layout'
-import styled from 'styled-components'
-import { MangaImage } from '../../components/MangaCard'
-import { ChatText, Files, Minus, Plus, ShoppingCart, Star, StarHalf } from 'phosphor-react'
-import { defaultTheme } from '../../styles/themes/default'
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+
+import { useEffect, useState } from "react";
+
 import ReactStars from "react-rating-stars-component";
+import DefaultLayout from "../../components/Layout";
 
-export const ProductContainer = styled.div`
-  display: flex;
+import { MangaImage } from "../../components/MangaCard/styles";
 
-  gap: 1.5rem;
+import {
+  ChatText,
+  Files,
+  Minus,
+  Plus,
+  Star,
+  StarHalf,
+} from "phosphor-react";
 
-  svg {
-    color: ${props => props.theme['green-500']};
-  }
-`
+import { defaultTheme } from "../../styles/themes/default";
 
-export const ResumeCard = styled.div`
-  padding: 1.125rem 2.75rem;
+import {
+  Amount,
+  Button,
+  Buy,
+  Description,
+  Info,
+  MangaDesc,
+  Pages,
+  ProductContainer,
+  Rating,
+  ResumeCard,
+  Tag,
+  Tags,
+  Title,
+  TitleDesc,
+  Unity,
+} from "../../styles/pages/product";
 
-  background-color: ${props => props.theme['gray-900']};
-  border-radius: 6px;
-`
-
-export const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  color: ${props => props.theme['green-500']};
-`
-
-export const Amount = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 8.562rem;
-  padding: 0.5rem;
-
-  background-color: ${props => props.theme['gray-800']};
-  border-radius: 4px;
-`
-
-export const Button = styled.button`
-  border: none;
-  background-color: transparent;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  :focus {
-    box-shadow: none;
-  }
-`
-
-export const Buy = styled.div`
-  margin-top: 0.75rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-export const BuyButton = styled.button`
-  border: none;
-  border-radius: 6px;
-
-  background-color: ${props => props.theme['gray-800']};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0.437rem;
-`
-
-export const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`
-
-export const Description = styled.div`
-  background-color: ${props => props.theme['gray-900']};
-  padding: 1.5rem;
-
-  border-radius: 6px;
-
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-export const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-
-  text-align: center;
-`
-
-export const Unity = styled.p`
-  margin-top: 0.3rem;
-  font-size: 1.25rem;
-`
-
-export const Pages = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-
-  margin-top: 0.5rem;
-`
-
-export const Tags = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  margin-top: 1rem;
-`
-
-export const Tag = styled.div`
-  padding: 0.5rem 0.75rem;
-
-  border-radius: 4px;
-
-  background-color: ${props => props.theme['green-500']};
-`
-
-export const TitleDesc = styled.h2`
-  align-self: flex-start;
-
-  font-size: 1.25rem;
-
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-`
-
-export const MangaDesc = styled.p`
-  align-self: flex-start;
-  font-size: 1rem;
-  font-weight: 100;
-
-  margin-top: 0.75rem;
-`
+import { Cart } from "../../components/Cart";
 
 const Product: NextPage = () => {
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState(0);
 
   function handleAmountChange(quant: number) {
     if (amount + quant >= 0) {
-      setAmount(amount + quant)
+      setAmount(amount + quant);
     }
   }
 
   useEffect(() => {
     if (!id) {
-      return
+      return;
     }
-  }, [id])
+  }, [id]);
 
   if (!id) {
-    return (<h1></h1>)
+    return <h1></h1>;
   }
 
   return (
     <DefaultLayout>
       <ProductContainer>
         <ResumeCard>
-          <MangaImage src={'https://cdn.myanimelist.net/images/anime/1045/123711.jpg'} alt="" width={195} height={304} />
+          <MangaImage
+            src={"https://cdn.myanimelist.net/images/anime/1045/123711.jpg"}
+            alt=""
+            width={195}
+            height={304}
+          />
           <Rating>
             <ReactStars
               count={5}
@@ -197,28 +87,22 @@ const Product: NextPage = () => {
           </Rating>
           <Buy>
             <Amount>
-              <Button onClick={
-                () => handleAmountChange(1)
-              }>
+              <Button onClick={() => handleAmountChange(1)}>
                 <Plus size={23} weight="bold" />
               </Button>
               {amount}
-              <Button onClick={
-                () => handleAmountChange(-1)
-              }>
+              <Button onClick={() => handleAmountChange(-1)}>
                 <Minus size={23} weight="bold" />
               </Button>
             </Amount>
-            <BuyButton>
-              <ShoppingCart size={23} weight="fill" />
-            </BuyButton>
+            <Cart />
           </Buy>
         </ResumeCard>
         <Info>
           <Description>
             <Title>One Piece: East Blue: Volume 7</Title>
             <Unity>
-              <strong>30 </strong> 
+              <strong>30 </strong>
               Unidades
             </Unity>
             <Pages>
@@ -239,14 +123,12 @@ const Product: NextPage = () => {
               <ChatText size={20} />
               Descrição
             </TitleDesc>
-            <MangaDesc>
-            lorem Ipsum Dolor Met lorem Ipsum Dolor Met
-            </MangaDesc>
+            <MangaDesc>lorem Ipsum Dolor Met lorem Ipsum Dolor Met</MangaDesc>
           </Description>
         </Info>
       </ProductContainer>
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
