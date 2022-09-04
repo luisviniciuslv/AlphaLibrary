@@ -80,4 +80,8 @@ export const Select = styled.select`
   padding: 0.6rem 0.375rem;
 
   border-radius: 6px;
+
+  color: ${props => props.theme['gray-800']};
+  font-size: 1rem;
+  font-weight: 400;
 `

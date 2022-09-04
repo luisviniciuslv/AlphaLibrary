@@ -8,14 +8,7 @@ import DefaultLayout from "../../components/Layout";
 
 import { MangaImage } from "../../components/MangaCard/styles";
 
-import {
-  ChatText,
-  Files,
-  Minus,
-  Plus,
-  Star,
-  StarHalf,
-} from "phosphor-react";
+import { ChatText, Files, Minus, Plus, Star, StarHalf } from "phosphor-react";
 
 import { defaultTheme } from "../../styles/themes/default";
 
