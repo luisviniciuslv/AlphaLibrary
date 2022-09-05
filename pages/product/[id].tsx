@@ -10,9 +10,11 @@ import {
   Star,
   StarHalf,
 } from "phosphor-react";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useContext } from "react";
 import ReactStars from "react-rating-stars-component";
 import styled from "styled-components";
+import { CartContext } from "../../CartContext";
 import DefaultLayout from "../../components/Layout";
 import { MangaImage } from "../../components/MangaCard";
 import { MangaDocument } from "../../src/model/manga";
@@ -33,6 +35,8 @@ export const ResumeCard = styled.div`
 
   background-color: ${(props) => props.theme["gray-900"]};
   border-radius: 6px;
+
+  height: 26.562rem;
 `;
 
 export const Rating = styled.div`
@@ -176,9 +180,22 @@ const Product: NextPage = () => {
 
   const [manga, setManga] = useState<MangaDocument>();
 
+  const { updateAmount } = useContext(CartContext);
+
   function handleAmountChange(quant: number) {
     if (amount + quant >= 0) {
       setAmount(amount + quant);
+    }
+  }
+
+  function handleAddManga() {
+    if (amount != 0) {
+      const newManga = {
+        ...manga,
+        amount
+      }
+
+      updateAmount(newManga)
     }
   }
 
@@ -223,7 +240,9 @@ const Product: NextPage = () => {
                 <Plus size={23} weight="bold" />
               </Button>
             </Amount>
-            <BuyButton>
+            <BuyButton 
+              onClick={handleAddManga}
+            >
               <ShoppingCart size={23} weight="fill" />
             </BuyButton>
           </Buy>
