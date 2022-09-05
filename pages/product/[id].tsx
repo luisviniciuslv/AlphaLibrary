@@ -240,7 +240,11 @@ const Product: NextPage = () => {
               Quantidade de Páginas
               <strong>{manga.qtdPages}</strong>
             </Pages>
-            <Tags></Tags>
+            <Tags>
+              {manga.tags.map((tag: string) => (
+                <Tag key={tag}>{tag[0].toUpperCase() + tag.substring(1)}</Tag>
+              ))}
+            </Tags>
           </Description>
           <Description>
             <TitleDesc>
