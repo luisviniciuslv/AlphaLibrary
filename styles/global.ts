@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    user-select: none;
     color: ${props => props.theme["white-50"]};
     background-color: ${props => props.theme["gray-800"]};
     --webkit-font-smoothing: antialiased;

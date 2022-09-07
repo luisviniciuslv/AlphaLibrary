@@ -11,14 +11,12 @@ export interface MangaRequestDTO {
   imageUrl: string;
   stars: number;
 }
+
 export interface MangaDeleteDTO {
   password?: string;
   id?: ObjectId;
 }
-export interface MangaDeleteDTO {
-  password?: string;
-  id?: ObjectId;
-}
+
 export interface MangaDocument {
   _id?: ObjectId;
   name: string;
@@ -28,6 +26,10 @@ export interface MangaDocument {
   tags: string[];
   imageUrl: string;
   stars: number;
+}
+
+export interface MangaCart extends MangaDocument {
+  amount: number;
 }
 
 export const MangaSchema: Schema = new Schema<MangaDocument>({
